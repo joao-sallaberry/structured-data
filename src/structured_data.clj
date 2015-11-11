@@ -120,18 +120,20 @@
         (str cnt " books. " (apply str (interpose ". " (map book->string books))) \. )))))
 
 (defn books-by-author [author books]
-  :-)
+  (let [has-author?2
+        (fn [b] (has-author? b author))]
+    (filter has-author?2 books)))
 
 (defn author-by-name [name authors]
-  :-)
+  (first (filter (fn [author] (= (:name author) name)) authors)))
 
 (defn living-authors [authors]
-  :-)
+  (filter alive? authors))
 
 (defn has-a-living-author? [book]
-  :-)
+  (not (empty? (living-authors (:authors book)))))
 
 (defn books-by-living-authors [books]
-  :-)
+  (filter has-a-living-author? books))
 
 ; %________%
